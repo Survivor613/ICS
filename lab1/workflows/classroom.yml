@@ -1,0 +1,300 @@
+name: Autograding Tests
+"on":
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Operator Check
+        id: operator-check
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: Operator Check
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: chmod +x dlc && ./dlc bits.c
+          input: ""
+          expected-output: "^$"
+          comparison-method: regex
+          timeout: 10
+          max-score: 100
+      - name: signMask
+        id: signmask
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: signMask
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f signMask
+          input: ""
+          expected-output: "Total points: 1/1"
+          comparison-method: contains
+          timeout: 10
+          max-score: 1
+      - name: bitXor
+        id: bitxor
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: bitXor
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f bitXor
+          input: ""
+          expected-output: "Total points: 2/2"
+          comparison-method: contains
+          timeout: 10
+          max-score: 2
+      - name: negativePart
+        id: negativepart
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: negativePart
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f negativePart
+          input: ""
+          expected-output: "Total points: 3/3"
+          comparison-method: contains
+          timeout: 10
+          max-score: 3
+      - name: clearByte
+        id: clearbyte
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: clearByte
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f clearByte
+          input: ""
+          expected-output: "Total points: 4/4"
+          comparison-method: contains
+          timeout: 10
+          max-score: 4
+      - name: roundUp
+        id: roundup
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: roundUp
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f roundUp
+          input: ""
+          expected-output: "Total points: 4/4"
+          comparison-method: contains
+          timeout: 10
+          max-score: 4
+      - name: isLargerOrEqual
+        id: islargerorequal
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: isLargerOrEqual
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f isLargerOrEqual
+          input: ""
+          expected-output: "Total points: 4/4"
+          comparison-method: contains
+          timeout: 10
+          max-score: 4
+      - name: logicalShift
+        id: logicalshift
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: logicalShift
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f logicalShift
+          input: ""
+          expected-output: "Total points: 4/4"
+          comparison-method: contains
+          timeout: 10
+          max-score: 4
+      - name: swapNibblePairs
+        id: swapnibblepairs
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: swapNibblePairs
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f swapNibblePairs
+          input: ""
+          expected-output: "Total points: 5/5"
+          comparison-method: contains
+          timeout: 10
+          max-score: 5
+      - name: secondLowestZeroBit
+        id: secondlowestzerobit
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: secondLowestZeroBit
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f secondLowestZeroBit
+          input: ""
+          expected-output: "Total points: 5/5"
+          comparison-method: contains
+          timeout: 10
+          max-score: 5
+      - name: rotateRightBits
+        id: rotaterightbits
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: rotateRightBits
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f rotateRightBits
+          input: ""
+          expected-output: "Total points: 5/5"
+          comparison-method: contains
+          timeout: 10
+          max-score: 5
+      - name: fractions
+        id: fractions
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: fractions
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f fractions
+          input: ""
+          expected-output: "Total points: 5/5"
+          comparison-method: contains
+          timeout: 10
+          max-score: 5
+      - name: overflowCalc
+        id: overflowcalc
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: overflowCalc
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f overflowCalc
+          input: ""
+          expected-output: "Total points: 7/7"
+          comparison-method: contains
+          timeout: 10
+          max-score: 7
+      - name: mul5Sat
+        id: mul5sat
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: mul5Sat
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f mul5Sat
+          input: ""
+          expected-output: "Total points: 7/7"
+          comparison-method: contains
+          timeout: 10
+          max-score: 7
+      - name: float_half
+        id: float_half
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: float_half
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f float_half
+          input: ""
+          expected-output: "Total points: 7/7"
+          comparison-method: contains
+          timeout: 10
+          max-score: 7
+      - name: float_i2f
+        id: float_i2f
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: float_i2f
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f float_i2f
+          input: ""
+          expected-output: "Total points: 7/7"
+          comparison-method: contains
+          timeout: 10
+          max-score: 7
+      - name: oddParity
+        id: oddparity
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: oddParity
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f oddParity
+          input: ""
+          expected-output: "Total points: 10/10"
+          comparison-method: contains
+          timeout: 10
+          max-score: 10
+      - name: float_inv
+        id: float_inv
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: float_inv
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f float_inv
+          input: ""
+          expected-output: "Total points: 10/10"
+          comparison-method: contains
+          timeout: 10
+          max-score: 10
+      - name: bitCount
+        id: bitcount
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: bitCount
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f bitCount
+          input: ""
+          expected-output: "Total points: 10/10"
+          comparison-method: contains
+          timeout: 10
+          max-score: 10
+      - name: bitReverse
+        id: bitreverse
+        uses: classroom-resources/autograding-io-grader@v1
+        with:
+          test-name: bitReverse
+          setup-command: sudo apt-get install gcc-multilib && make clean
+            && make all
+          command: ./btest -f bitReverse
+          input: ""
+          expected-output: "Total points: 10/10"
+          comparison-method: contains
+          timeout: 10
+          max-score: 10
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          OPERATOR-CHECK_RESULTS: "${{steps.operator-check.outputs.result}}"
+          SIGNMASK_RESULTS: "${{steps.signmask.outputs.result}}"
+          BITXOR_RESULTS: "${{steps.bitxor.outputs.result}}"
+          CLEARBYTE_RESULTS: "${{steps.clearbyte.outputs.result}}"
+          ROUNDUP_RESULTS: "${{steps.roundup.outputs.result}}"
+          NEGATIVEPART_RESULTS: "${{steps.negativepart.outputs.result}}"
+          ISLARGEROREQUAL_RESULTS: "${{steps.islargerorequal.outputs.result}}"
+          LOGICALSHIFT_RESULTS: "${{steps.logicalshift.outputs.result}}"
+          SWAPNIBBLEPAIRS_RESULTS: "${{steps.swapnibblepairs.outputs.result}}"
+          SECONDLOWESTZEROBIT_RESULTS: "${{steps.secondlowestzerobit.outputs.result}}"
+          ROTATERIGHTBITS_RESULTS: "${{steps.rotaterightbits.outputs.result}}"
+          FRACTIONS_RESULTS: "${{steps.fractions.outputs.result}}"
+          OVERFLOWCALC_RESULTS: "${{steps.overflowcalc.outputs.result}}"
+          MUL5SAT_RESULTS: "${{steps.mul5sat.outputs.result}}"
+          FLOAT_INV_RESULTS: "${{steps.float_inv.outputs.result}}"
+          FLOAT_HALF_RESULTS: "${{steps.float_half.outputs.result}}"
+          FLOAT_I2F_RESULTS: "${{steps.float_i2f.outputs.result}}"
+          ODDPARITY_RESULTS: "${{steps.oddparity.outputs.result}}"
+          BITCOUNT_RESULTS: "${{steps.bitcount.outputs.result}}"
+          BITREVERSE_RESULTS: "${{steps.bitreverse.outputs.result}}"
+        with:
+          runners: operator-check,signmask,bitxor,negativepart,clearbyte,roundup,islargerorequal,logicalshift,swapnibblepairs,secondlowestzerobit,rotaterightbits,fractions,overflowcalc,mul5sat,float_half,float_i2f,float_inv,oddparity,bitcount,bitreverse
