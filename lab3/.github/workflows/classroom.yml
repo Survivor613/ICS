@@ -1,0 +1,159 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: calc
+      id: calc
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: calc
+        setup-command: cd dark-calc && chmod +x ./dark-calc && chmod +x ./malware && cd ..
+        command: cd dark-calc && python3 payload.py > payload && ./dark-calc < payload; echo ""
+        input: ''
+        expected-output: You have successfully detonated the bomb! Congratulations!
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: coroutine-test-1
+      id: coroutine-test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-1
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test1 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 4
+    - name: coroutine-test-2
+      id: coroutine-test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-2
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test2 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 4
+    - name: coroutine-test-3
+      id: coroutine-test-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-3
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test3 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: coroutine-test-4
+      id: coroutine-test-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-4
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test4 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 3
+    - name: coroutine-test-5
+      id: coroutine-test-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-5
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test5 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 3
+    - name: coroutine-test-6
+      id: coroutine-test-6
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-6
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test6 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: coroutine-test-7
+      id: coroutine-test-7
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-7
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test7 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: coroutine-test-8
+      id: coroutine-test-8
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-8
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          test8 PASSED
+        comparison-method: contains
+        timeout: 10
+        max-score: 2
+    - name: coroutine-test-progress_bar
+      id: coroutine-test-progress_bar
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: coroutine-test-progress_bar
+        setup-command: cd coroutine && make clean && make all && chmod +x ./program && cd ..
+        command: cd coroutine && ./program
+        input: ''
+        expected-output: |-
+          progress bar SHOWN
+        comparison-method: contains
+        timeout: 10
+        max-score: 4
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CALC_RESULTS: "${{steps.calc.outputs.result}}"
+        COROUTINE-TEST-1_RESULTS: "${{steps.coroutine-test-1.outputs.result}}"
+        COROUTINE-TEST-2_RESULTS: "${{steps.coroutine-test-2.outputs.result}}"
+        COROUTINE-TEST-3_RESULTS: "${{steps.coroutine-test-3.outputs.result}}"
+        COROUTINE-TEST-4_RESULTS: "${{steps.coroutine-test-4.outputs.result}}"
+        COROUTINE-TEST-5_RESULTS: "${{steps.coroutine-test-5.outputs.result}}"
+        COROUTINE-TEST-6_RESULTS: "${{steps.coroutine-test-6.outputs.result}}"
+        COROUTINE-TEST-7_RESULTS: "${{steps.coroutine-test-7.outputs.result}}"
+        COROUTINE-TEST-8_RESULTS: "${{steps.coroutine-test-8.outputs.result}}"
+        COROUTINE-TEST-PROGRESS_BAR_RESULTS: "${{steps.coroutine-test-progress_bar.outputs.result}}"
+      with:
+        runners: calc,coroutine-test-1,coroutine-test-2,coroutine-test-3,coroutine-test-4,coroutine-test-5,coroutine-test-6,coroutine-test-7,coroutine-test-8,coroutine-test-progress_bar
