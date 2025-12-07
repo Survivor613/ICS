@@ -1,0 +1,21 @@
+.vscode
+
+# Build outputs
+build/
+
+# Convenience symlinks to built binaries
+csim
+test-trans
+tracegen
+
+# Trace outputs / temp files
+trace.f*
+trace.tmp
+trace.all
+.marker
+.csim_results
+
+# Archives
+*.tar
+
+# Do NOT ignore ref-bin/ (contains published reference binaries)
